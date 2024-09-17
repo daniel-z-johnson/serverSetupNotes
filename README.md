@@ -14,4 +14,14 @@
    7. Dry run to make sure everything looks good
    8. `unattended-upgrades --dry-run --debug`
   
-3. 
+3. Add new user to avoid having to log in as root
+   1. `adduser dzjohnson`
+  
+4. Add user to sudo group
+   1. `usermod -aG sudo dzjohnson`
+  
+5. Log out and log in as new user and make sure sudo is enabled for user
+6. Disabled passwords and use public/private key to log in (rsa, ed25519)
+   1. log in as user created above
+   2. `mkdir ~/.ssh && chmod 700 ~/.ssh`
+   3. `ssh-copi-id <username>@server`
