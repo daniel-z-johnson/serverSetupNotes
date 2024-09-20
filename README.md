@@ -21,7 +21,19 @@
    1. `usermod -aG sudo dzjohnson`
   
 5. Log out and log in as new user and make sure sudo is enabled for user
-6. Disabled passwords and use public/private key to log in (rsa, ed25519)
+6. Disabled passwords and use public/private key to log in (rsa)
    1. log in as user created above
    2. `mkdir ~/.ssh && chmod 700 ~/.ssh`
    3. `ssh-copi-id <username>@server`
+   4. `ssh <username>@server` no password should be required
+   5. edit `/etc/ssh/sshd_config`
+   6. add
+      1. `port <some port above 1024`
+      2. `PermitRootlogin no`
+      3. `PermitAuthEmptyPasswords no`
+      4. `PasswordAuthentication no`
+     
+   7. `systemctl restart sshd`
+      - `ssh -p newPort username@server`
+   9. In seperate terminal ssh into server
+  
