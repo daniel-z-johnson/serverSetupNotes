@@ -36,12 +36,11 @@
    4. `ssh <username>@server` no password should be required
    5. edit `/etc/ssh/sshd_config`
    6. add
-      1. `port <some port above 1024>`
-      2. `PermitRootlogin no`
-      3. `PermitAuthEmptyPasswords no`
-      4. `PasswordAuthentication no`
+      1. `PermitRootlogin no`
+      2. `PermitAuthEmptyPasswords no`
+      3. `PasswordAuthentication no`
      
    7. `systemctl restart sshd`
-      - `ssh -p newPort username@server`
+      - `ssh username@server`
    9. In seperate terminal ssh into server to make sure everything is working
   
