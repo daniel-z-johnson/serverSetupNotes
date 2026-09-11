@@ -1,5 +1,5 @@
 #!/bin/bash
-# Initial WireGuard server setup for Ubuntu. Run with sudo.
+# Initial WireGuard server setup for Debian and Ubuntu. Run as root or with sudo.
 set -euo pipefail
 set -o noclobber
 umask 077
@@ -41,7 +41,10 @@ if ip link show wg0 >/dev/null 2>&1; then
     exit 1
 fi
 source /etc/os-release
-[[ ${ID:-} == ubuntu ]] || { echo "This installer supports Ubuntu only." >&2; exit 1; }
+case "${ID:-}" in
+    debian|ubuntu) ;;
+    *) echo "This installer supports Debian and Ubuntu only." >&2; exit 1 ;;
+esac
 trap 'echo "Setup failed at line $LINENO. Inspect the error and any files already created before retrying." >&2' ERR
 
 # Resolve the actual route rather than assuming eth0 or selecting the first default.

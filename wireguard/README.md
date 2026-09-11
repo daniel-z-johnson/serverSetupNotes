@@ -1,10 +1,12 @@
 # WireGuard quick-start guide
 
-Set up an Ubuntu server as an internet VPN gateway for Linux clients. Commands below use the interface name `wg0` and subnet `10.0.0.0/24`. Choose a different subnet throughout if it overlaps your server network or a client's local network.
+Set up a Debian or Ubuntu server as an internet VPN gateway for Linux clients. Commands below use the interface name `wg0` and subnet `10.0.0.0/24`. Choose a different subnet throughout if it overlaps your server network or a client's local network.
 
 ## Before you begin
 
-- Use an Ubuntu release receiving security updates, with root/sudo access and systemd.
+- Use a Debian or Ubuntu release receiving security updates, with root/sudo access, systemd, and a kernel with WireGuard support. Debian 11 or newer provides WireGuard in the standard repositories; older releases requiring backports are outside this guide's scope. See [WireGuard installation](https://www.wireguard.com/install/).
+- The script uses `ip` and `sysctl`; install `iproute2` and `procps` first if they are missing from a minimal server image: `apt-get update && apt-get install -y iproute2 procps` as root.
+- Commands below assume an administrator with `sudo`. On Debian installations without `sudo`, run them from a root login shell (`su -`) and omit `sudo`, including when running `./setup-wireguard.sh`.
 - Secure SSH and keep a provider console available while changing networking.
 - Allow inbound **UDP 51820** in both your provider's firewall/security group and your host firewall. If UFW is already active, use `sudo ufw allow 51820/udp`. Preserve SSH access; do not blindly enable or reset a firewall.
 - The examples use iptables forwarding and NAT rules. If another firewall manager controls forwarding, reconcile these rules with its policy. The rules permit VPN clients to reach networks accessible through the server's outbound interface.
@@ -103,7 +105,7 @@ Continue below to add a client before starting the service.
 
 ## Client setup
 
-These instructions use a Linux client with `wg-quick`.
+These instructions use a Debian or Ubuntu Linux client with `wg-quick`.
 
 1. Install WireGuard:
 
